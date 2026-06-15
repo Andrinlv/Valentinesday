@@ -1,24 +1,24 @@
 /* --- CONFIGURATION --- */
 const loveQuotes = [
-    "Du bringst mich zum Lächeln!",
-    "Mein Herz schlägt nach Abenteuer!",
-    "Wenn du da bist, ist alles gut!",
-    "Jeden Tag denk ich an dich!",
-    "Level Up with you!"
+    "Question",
+    "Question",
+    "Question",
+    "Question",
+    "Question"
 ];
 
-// Memory Karten (Emojis Paare)
+
 const memoryIcons = ['🌹', '🍫', '🧸', '💍', '🍕', '🐱']; 
 
-// Quiz Fragen (Level 2)
+
 const quizData = [
-    { question: "Wo war unser erster Kuss?", answers: ["Kino", "Restaurant", "Münster"], correct: 2, wrongMsg: "Fast... denk an Herbst!" },
-    { question: "Was liebe ich an dir am meisten?", answers: ["Deine Augen", "Alles!", "Dein Lachen"], correct: 1, wrongMsg: "Alles ist die einzig richtige Antwort! ;)" },
-    { question: "Wer ist der bessere Sportler?", answers: ["Ich", "Du", "Der Lieferdienst"], correct: 0, wrongMsg: "Schön wär's! 😂" }
+    { question: "What do I like more about you?", answers: ["Eyes", "Your Mommy", "Boobies"], correct: 2, wrongMsg: "WROOOOONG" },
+    { question: "Where was I born?", answers: ["Moon", "Nowhere", "Somewhere"], correct: 1, wrongMsg: "OFC!" },
+    { question: "Who is better?", answers: ["I am", "You", "Both"], correct: 0, wrongMsg: "NA THATS BAD!" }
 ];
 
-// Der Brief am Ende (Passe dies an!)
-const finalLetterText = "Louisa, jetzte sind scho es par Mönet verbii gange und es isch so viel passiert, aber öpis isch immer bliibe und das wird nümme weg goh. Au wenn es sich kitschig ahört, muess ich es trotzdem sage. Ich hann dich ganz fest unendlich liäb und das wird sich nid ändere. Und ich will das es sich au nid änderet, well ich will mit dir die Welt erkunde und mini/dini Träum verwürkliche. Das schaff ich numme mit dir, elei wird es schweirig. Ich bin do für dich und au wenn es nid als Person goht, aber immer im Herze. Ha di ganz fest liääb! Andrin ❤️";
+
+const finalLetterText = "Your the love of my life!";
 
 /* --- STATE MANAGEMENT --- */
 let collectedHearts = 0;
@@ -26,7 +26,7 @@ let currentQuestionIndex = 0;
 let hasStartedMusic = false;
 let easterEggCount = 0;
 
-/* --- AUDIO ENGINE (Synthesizer für SFX) --- */
+/* --- AUDIO ENGINE (Synthesizer for SFX) --- */
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
@@ -132,7 +132,7 @@ window.onload = () => {
     const interval = setInterval(() => {
         if (width >= 100) {
             clearInterval(interval);
-            loadingText.innerText = "Bereit? Klicke um zu starten!";
+            loadingText.innerText = "Ready? Press to start!";
             startBtn.classList.remove('hidden');
         } else {
             width++;
@@ -160,10 +160,10 @@ function startLevel1() {
         heart.classList.add('heart-item');
         heart.innerHTML = '❤️';
         
-        // Zufällige Startposition
+        
         setRandomPos(heart);
         
-        // Animation Loop für Bewegung
+       
         moveHeartRandomly(heart);
 
         heart.addEventListener('click', (e) => {
@@ -182,7 +182,7 @@ function setRandomPos(el) {
 }
 
 function moveHeartRandomly(el) {
-    // Bewege das Herz alle 2-4 Sekunden an eine neue Position
+    
     const duration = 2000 + Math.random() * 2000;
     
     el.animate([
@@ -197,7 +197,7 @@ function moveHeartRandomly(el) {
 }
 
 function collectHeart(element, quote) {
-    element.style.pointerEvents = 'none'; // Doppelklick verhindern
+    element.style.pointerEvents = 'none'; 
     element.animate([
         { transform: 'scale(1.5) rotate(0deg)', opacity: 1 },
         { transform: 'scale(0) rotate(360deg)', opacity: 0 }
@@ -233,10 +233,10 @@ function startMemoryGame() {
     grid.innerHTML = '';
     memoryMatches = 0;
     
-    // Nimm 3 zufällige Paare aus den Icons (6 Karten total für schnelles Spiel)
+    
     const selection = memoryIcons.slice(0, 3); 
-    const cards = [...selection, ...selection]; // Verdoppeln
-    cards.sort(() => 0.5 - Math.random()); // Mischen
+    const cards = [...selection, ...selection];
+    cards.sort(() => 0.5 - Math.random());
 
     cards.forEach(icon => {
         const card = document.createElement('div');
@@ -256,7 +256,7 @@ function flipCard() {
     if (this === firstCard) return;
 
     this.classList.add('flip');
-    playSound('collect'); // Kleiner Sound beim Umdrehen
+    playSound('collect');
 
     if (!hasFlippedCard) {
         hasFlippedCard = true;
@@ -280,7 +280,7 @@ function disableCards() {
     resetBoard();
     memoryMatches++;
     
-    // 3 Paare = Gewonnen
+   
     if(memoryMatches === 3) {
         setTimeout(() => {
             switchScene('level2');
@@ -333,7 +333,7 @@ function checkAnswer(selectedIndex, btnElement, e) {
         playSound('correct');
         createParticles(e.clientX, e.clientY);
         btnElement.style.background = "rgba(0, 255, 0, 0.5)";
-        feedback.innerText = "Richtig! ❤️";
+        feedback.innerText = "Correct! ❤️";
         
         setTimeout(() => {
             currentQuestionIndex++;
@@ -364,7 +364,7 @@ function startTypewriter() {
         if (i < finalLetterText.length) {
             el.innerHTML += finalLetterText.charAt(i);
             i++;
-            setTimeout(type, 50); // Schreibgeschwindigkeit
+            setTimeout(type, 50);
         } else {
             replayBtn.classList.remove('hidden');
         }
